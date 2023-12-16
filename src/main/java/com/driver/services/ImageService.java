@@ -43,9 +43,9 @@ public class ImageService {
         int y = Integer.parseInt(screenDimensions.substring(indexOfXScreen+1));
 
         int heightRatio = x/a;
-        int widthRation = y/b;
+        int widthRatio = y/b;
 
-        int count = heightRatio*widthRation;
+        int count = heightRatio*widthRatio;
 
         return count;
     }
