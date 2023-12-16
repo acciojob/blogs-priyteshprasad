@@ -17,13 +17,15 @@ public class ImageService {
 
     public Image addImage(Integer blogId, String description, String dimensions){
         //add an image to the blog
-        Image image =new Image();
-        image.setBlog(blogRepository2.findById(blogId).get());
+        Blog blog = blogRepository2.findById(blogId).get();
+        Image image = new Image();
+        image.setBlog(blog);
         image.setDescription(description);
         image.setDimensions(dimensions);
-        imageRepository2.save(image);
+        image.setBlog(blog);
+        blog.getImageList().add(image);
+        blogRepository2.save(blog);
         return image;
-
     }
 
     public void deleteImage(Integer id){
@@ -43,9 +45,9 @@ public class ImageService {
         int y = Integer.parseInt(screenDimensions.substring(indexOfXScreen+1));
 
         int heightRatio = x/a;
-        int widthRatio = y/b;
+        int widthRation = y/b;
 
-        int count = heightRatio*widthRatio;
+        int count = heightRatio*widthRation;
 
         return count;
     }

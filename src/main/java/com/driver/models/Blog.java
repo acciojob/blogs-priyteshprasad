@@ -1,26 +1,29 @@
 package com.driver.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 
 @Entity
 public class Blog {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    int id;
-    String title;
-    String content;
-
-    Date pubDate = new Date();
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private String title;
+    private String content;
+    @CreationTimestamp
+    private Date pubDate;
     @ManyToOne
-    User user;
-
-    @OneToMany(mappedBy = "blog")
-    List<Image> imageList;
+    @JoinColumn
+    @JsonIgnore
+    private User user;
+    @OneToMany(mappedBy = "blog",cascade = CascadeType.ALL)
+    private List<Image> imageList = new ArrayList<>();
 
     public Blog() {
     }

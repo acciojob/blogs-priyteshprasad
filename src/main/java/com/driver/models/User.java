@@ -1,27 +1,24 @@
 package com.driver.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.annotation.Generated;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    int id;
-
-    @Column(unique = true)
-    String username;
-    String password;
-    String firstName;
-
-    String lastName = "test";
-
-    @OneToMany(mappedBy = "user")
-    List<Blog> blogList;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private String username;
+    private String password;
+    private String firstName;
+    private String lastName;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Blog> blogList = new ArrayList<>();
 
     public User() {
     }
@@ -82,7 +79,4 @@ public class User {
     public void setBlogList(List<Blog> blogList) {
         this.blogList = blogList;
     }
-//deleteUser(UUID id)
-
-    //updateUser() //updatepassword
 }
